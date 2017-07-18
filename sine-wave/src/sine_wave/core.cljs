@@ -27,7 +27,20 @@
   (set! (.-fillStyle ctx) colour)
   (.fillRect ctx x y 2 2))
 
+#_(-> sine-wave
+      (.take 600)
+      (.subscribe (fn [{:keys [x y]}]
+                    (fill-rect x y "orange"))))
+
+(def colour
+  (.map sine-wave
+        (fn [{:keys [sin]}]
+          (if (neg? sin)
+            "red"
+            "blue"))))
+
 (-> sine-wave
+    (.zip colour vector)
     (.take 600)
-    (.subscribe (fn [{:keys [x y]}]
-                  (fill-rect x y "orange"))))
+    (.subscribe (fn [[{:keys [x y]} colour]]
+                  (fill-rect x y colour))))
