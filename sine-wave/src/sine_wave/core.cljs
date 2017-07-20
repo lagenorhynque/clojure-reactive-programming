@@ -64,3 +64,5 @@
     (.take 600)
     (.subscribe (fn [[{:keys [x y]} colour]]
                   (fill-rect x y colour))))
+
+;; TODO: Exercise 1.1
